@@ -60,4 +60,10 @@
             {{ $tasks->links() }}
         </div>
     </div>
+    <style>
+    [aria-label="&laquo; Previous"],
+    [aria-label="Next &raquo;"] {
+        display: none !important;
+    }
+</style>
 @endsection
