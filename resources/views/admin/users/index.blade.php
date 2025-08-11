@@ -4,7 +4,7 @@
     <div class="container mx-auto px-4 py-6">
         <h1 class="text-2xl font-bold mb-4">User Management</h1>
         <div class="mb-4">
-            <a href="tasks/create" class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded">+ Create New User</a>
+            <a href="users/create" class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded">+ Create New User</a>
         </div>
 
         {{-- Success Message --}}
