@@ -5,19 +5,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreTaskRequest;
 
 class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = DB::table('tasks')->orderBy('created_at', 'asc')->paginate(10);
+        $tasks = DB::table('tasks')->orderBy('created_at', 'asc')->paginate(5);
         return view('admin.tasks.index', compact('tasks'));
     }
     public function make()
     {
         return view('admin.tasks.create');
     }
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
         $request->validate([
         'title' => 'required|max:255',
