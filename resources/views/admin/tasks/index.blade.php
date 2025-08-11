@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold mb-4">Task Management</h1>
 
         <div class="mb-4">
-            <a href="{{ route('admin.tasks.create') }}" class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded">+ Create New Task</a>
+            <a href="tasks/create" class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded">+ Create New Task</a>
         </div>
         {{-- Success Message --}}
         @if(session('success'))
@@ -35,10 +35,13 @@
                             <td class="border px-4 py-2">{{ Str::limit($task->description, 50) }}</td>
                             <td class="border px-4 py-2">{{ $task->created_at }}</td>
                             <td class="border px-4 py-2 space-x-2">
-                                
+                             <a href="tasks/{{ $task->id }}/change" class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded">Edit</a> 
+                           
+                                <a href="tasks/{{ $task->id }}/display">View</a>
+                                <form action="tasks/{{ $task->id }}/remove" method="POST" onclick="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:underline" onclick="return confirm('Are you sure?')">Delete</button>
+                                    <button type="submit" class="text-red-500 hover:underline" >Delete</button>
                                      
                                 </form>
                             </td>

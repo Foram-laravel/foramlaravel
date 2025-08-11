@@ -31,19 +31,34 @@ class TaskController extends Controller
     ]);
     return redirect()->route('admin.tasks.index')->with('success', 'Task created successfully.');
     }
-    public function change(Request $request, $id)
+    public function display(Task $task)
     {
-       $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'nullable',
-        ]);
+        return view('admin.tasks.display', compact('task'));
+    }
+    public function change(Task $task)
+    {
+       
+      return view('admin.tasks.change', compact('task'));
+        
+    }
+    public function update(Request $request, Task $task)
+    {
+    $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'nullable',
+    ]);
 
-        DB::table('tasks')->where('id', $id)->update([
+    DB::table('tasks')->where('id', $task->id)->update([
         'title' => $request->input('title'),
         'description' => $request->input('description'),
         'updated_at' => now(),
-        ]);
+    ]);
 
-        return redirect()->route('admin.tasks.index')->with('success', 'Task updated successfully.');
+    return redirect()->route('admin.tasks.index')->with('success', 'Task updated successfully.');
+    }
+    public function remove(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('admin.tasks.index')->with('success', 'Task deleted successfully.');
     }
 }
