@@ -65,5 +65,8 @@
     [aria-label="Next &raquo;"] {
         display: none !important;
     }
+     .inline-flex.shadow-sm.rounded-md {
+        display: none !important;
+    }
 </style>
 @endsection

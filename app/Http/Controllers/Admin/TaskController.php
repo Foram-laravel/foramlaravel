@@ -27,6 +27,7 @@ class TaskController extends Controller
         $tasks = DB::table('tasks')->insert([
         'title' => $request->title,
         'description' => $request->description,
+        'user_id' => auth()->id(), 
         'created_at' => now(),
         'updated_at' => now(),
     ]);
@@ -38,7 +39,10 @@ class TaskController extends Controller
     }
     public function change(Task $task)
     {
-       
+      if ($task->user_id != auth()->id()) {
+        return redirect()->route('admin.tasks.index')->with('error', 'Not allowed!');
+    }
+ 
       return view('admin.tasks.change', compact('task'));
         
     }
@@ -54,8 +58,12 @@ class TaskController extends Controller
         'description' => $request->input('description'),
         'updated_at' => now(),
     ]);
-
-    return redirect()->route('admin.tasks.index')->with('success', 'Task updated successfully.');
+    if ($task->user_id != auth()->id()) {
+        return redirect()->route('admin.tasks.index')->with('error', 'Not allowed!');
+    }else{
+      return redirect()->route('admin.tasks.index')->with('success', 'Task updated successfully.');
+    }
+    
     }
     public function remove(Task $task)
     {
